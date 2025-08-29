@@ -1,0 +1,18 @@
+import express from "express";
+import { Login } from "../controllers/Login_controller.js";
+import { Add_Apartment } from "../controllers/Add_Apartment_Controller.js";
+import { Get_Apartments } from "../controllers/Get_Apartment_Controller.js";
+import { Get_User } from "../controllers/Get_User_Controller.js";
+import { Delete_Apartment } from "../controllers/Delete_Apartment_Controller.js";
+import { Edit_Apertment } from "../controllers/Edit_Apartment.js";
+
+const router = express.Router();
+
+router.post("/login", Login);
+router.post("/addapartment", Add_Apartment);
+router.get("/getapartments", Get_Apartments);
+router.post("/getuser", Get_User);
+router.delete("/deleteapartment", Delete_Apartment);
+router.put("/editapartment", Edit_Apertment);
+
+export default router;
