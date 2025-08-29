@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Node.js
 node_modules/
@@ -23,6 +24,8 @@ yarn-error.log*
 # OS files
 Thumbs.db
 
+=======
+>>>>>>> 4a11c08ddefb8aded439c70c26d996e61f852d21
 # Logs
 logs
 *.log
