@@ -6,6 +6,7 @@ import { Get_User } from "../controllers/Get_User_Controller.js";
 import { Delete_Apartment } from "../controllers/Delete_Apartment_Controller.js";
 import { Edit_Apertment } from "../controllers/Edit_Apartment.js";
 import { Get_All_Users } from "../controllers/Get_All_Users_Controller.js";
+import { Edit_User } from "../controllers/Edit_User_Controller.js";
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.post("/getuser", Get_User);
 router.delete("/deleteapartment", Delete_Apartment);
 router.put("/editapartment", Edit_Apertment);
 router.get("/getallusers", Get_All_Users);
+router.put("/edituser", Edit_User);
 
 export default router;
