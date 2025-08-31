@@ -24,6 +24,8 @@ export const Edit_Apertment = async (req, res) => {
     The_Apartment.services.main_water = services.main_water;
     The_Apartment.services.office = services.office;
     The_Apartment.services.secure_month = services.secure_month;
+    The_Apartment.description = description;
+    The_Apartment.owner_phone = owner_phone;
     await The_Apartment.save();
     res.status(200).json(The_Apartment);
   } catch (error) {
