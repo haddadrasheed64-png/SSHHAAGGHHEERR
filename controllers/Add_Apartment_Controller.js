@@ -12,8 +12,6 @@ export const Add_Apartment = async (req, res) => {
       rent,
       payment_method,
       services,
-      office_name,
-      secure_month,
       description,
       owner_phone,
       email,

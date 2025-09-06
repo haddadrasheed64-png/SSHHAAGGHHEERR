@@ -3,7 +3,13 @@ const APARTMENT_SCHEMA = new mongoose.Schema({
   title: { type: String, required: true },
   location: { type: String, required: true },
   images: {
-    type: [{ url: String, public_id: String, type: "image" || "video" }],
+    type: [
+      {
+        url: String,
+        public_id: String,
+        type: { type: String, enum: ["image", "video"], required: true },
+      },
+    ],
     required: false,
   },
   rooms: { type: Number, required: true },
