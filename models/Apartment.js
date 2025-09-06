@@ -2,7 +2,10 @@ import mongoose from "mongoose";
 const APARTMENT_SCHEMA = new mongoose.Schema({
   title: { type: String, required: true },
   location: { type: String, required: true },
-  images: { type: [{ url: String, public_id: String }], required: false },
+  images: {
+    type: [{ url: String, public_id: String, type: "image" || "video" }],
+    required: false,
+  },
   rooms: { type: Number, required: true },
   gender: { type: String, required: true },
   rent: { type: Number, required: true },
