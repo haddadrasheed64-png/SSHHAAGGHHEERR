@@ -23,12 +23,16 @@ export const Delete_Apartment = async (req, res) => {
     return res.status(401).json({ message: "الشقة ليست لك" });
 
   try {
-    // حذف كل الصور المرتبطة بالشقة من Cloudinary
-    for (const img of The_Apartment.images) {
-      if (img.public_id) {
-        await cloudinary.uploader.destroy(img.public_id);
+    // حذف كل الصور والفيديوهات المرتبطة بالشقة من Cloudinary
+    for (const media of The_Apartment.images) {
+      if (media.public_id) {
+        const type = media.type == "video" ? "video" : "image";
+        await cloudinary.uploader.destroy(media.public_id, {
+          resource_type: type,
+        });
       }
     }
+
     await The_Apartment.deleteOne();
     The_User.apartments = The_User.apartments.filter(
       (apt) => apt.apartment_id !== apartment_id
