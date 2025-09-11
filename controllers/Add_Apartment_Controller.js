@@ -24,6 +24,10 @@ export const Add_Apartment = async (req, res) => {
       description,
       owner_phone,
       email,
+      // الحقول الجديدة
+      listing_type,
+      currency,
+      sale_price,
     } = req.body;
 
     const The_User = await User.findOne({ email });
@@ -48,6 +52,26 @@ export const Add_Apartment = async (req, res) => {
       }
     }
 
+    // تحقق بسيط من الحقول بحسب نوع الإدراج
+    if (!listing_type || !["sell", "rent"].includes(listing_type)) {
+      return res.status(400).json({ message: "يجب تحديد نوع الإعلان بيع أم إيجار" });
+    }
+    if (!currency || !["USD", "SYP"].includes(currency)) {
+      return res.status(400).json({ message: "العملة غير صحيحة" });
+    }
+    if (listing_type === "sell") {
+      if (!sale_price || Number(sale_price) <= 0) {
+        return res.status(400).json({ message: "يرجى إدخال سعر البيع" });
+      }
+    } else if (listing_type === "rent") {
+      if (!rent || Number(rent) <= 0) {
+        return res.status(400).json({ message: "يرجى إدخال قيمة الإيجار" });
+      }
+      if (!payment_method) {
+        return res.status(400).json({ message: "يرجى تحديد طريقة الدفع" });
+      }
+    }
+
     // إنشاء الشقة
     const new_apartment = new Apartment({
       title,
@@ -55,8 +79,11 @@ export const Add_Apartment = async (req, res) => {
       images, // هنا نحتفظ فقط بالرابط المضغوط
       rooms,
       gender,
-      rent,
-      payment_method,
+      listing_type,
+      rent: listing_type === "rent" ? rent : undefined,
+      payment_method: listing_type === "rent" ? payment_method : undefined,
+      sale_price: listing_type === "sell" ? sale_price : undefined,
+      currency,
       services,
       description,
       owner_phone,
