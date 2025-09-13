@@ -7,6 +7,7 @@ import { Delete_Apartment } from "../controllers/Delete_Apartment_Controller.js"
 import { Edit_Apertment } from "../controllers/Edit_Apartment.js";
 import { Get_All_Users } from "../controllers/Get_All_Users_Controller.js";
 import { Edit_User } from "../controllers/Edit_User_Controller.js";
+import { Website_Analytics } from "../controllers/Add_Visit_Controller.js";
 
 const router = express.Router();
 
@@ -18,5 +19,6 @@ router.delete("/deleteapartment", Delete_Apartment);
 router.put("/editapartment", Edit_Apertment);
 router.get("/getallusers", Get_All_Users);
 router.put("/edituser", Edit_User);
+router.post("/website", Website_Analytics);
 
 export default router;
