@@ -10,12 +10,15 @@ export const Edit_Apertment = async (req, res) => {
       services,
       description,
       owner_phone,
+      listing_type,
+      currency,
+      sale_price,
     } = req.body;
 
     const The_Apartment = await Apartment.findOne({ _id: _id });
 
     if (!The_Apartment) {
-      return res.status(404).json({ message: "الشقة غير موجودة" });
+      return res.status(404).json({ message: "العقار غير موجودة" });
     }
 
     The_Apartment.gender = gender;
@@ -26,6 +29,10 @@ export const Edit_Apertment = async (req, res) => {
     The_Apartment.services.secure_month = services.secure_month;
     The_Apartment.description = description;
     The_Apartment.owner_phone = owner_phone;
+    The_Apartment.listing_type = listing_type;
+    The_Apartment.sale_price = sale_price;
+    The_Apartment.currency = currency;
+
     await The_Apartment.save();
     res.status(200).json(The_Apartment);
   } catch (error) {

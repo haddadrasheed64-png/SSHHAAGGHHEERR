@@ -17,13 +17,13 @@ export const Delete_Apartment = async (req, res) => {
   const The_User = await User.findOne({ email: email });
 
   if (!The_Apartment)
-    return res.status(404).json({ message: "الشقة غير موجودة" });
+    return res.status(404).json({ message: "العقار غير موجودة" });
   if (!The_User) return res.status(401).json({ message: "المستخدم غير موجود" });
   if (!The_User.apartments.some((apt) => apt.apartment_id === apartment_id))
-    return res.status(401).json({ message: "الشقة ليست لك" });
+    return res.status(401).json({ message: "العقار ليست لك" });
 
   try {
-    // حذف كل الصور والفيديوهات المرتبطة بالشقة من Cloudinary
+    // حذف كل الصور والفيديوهات المرتبطة بالعقار من Cloudinary
     for (const media of The_Apartment.images) {
       if (media.public_id) {
         const type = media.type == "video" ? "video" : "image";
@@ -39,7 +39,7 @@ export const Delete_Apartment = async (req, res) => {
     );
     await The_User.save();
 
-    res.status(200).json({ message: "تم حذف الشقة والصور بنجاح" });
+    res.status(200).json({ message: "تم حذف العقار والصور بنجاح" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "حدث خطأ أثناء الحذف" });

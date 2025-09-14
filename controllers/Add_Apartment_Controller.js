@@ -54,7 +54,9 @@ export const Add_Apartment = async (req, res) => {
 
     // تحقق بسيط من الحقول بحسب نوع الإدراج
     if (!listing_type || !["sell", "rent"].includes(listing_type)) {
-      return res.status(400).json({ message: "يجب تحديد نوع الإعلان بيع أم إيجار" });
+      return res
+        .status(400)
+        .json({ message: "يجب تحديد نوع الإعلان بيع أم إيجار" });
     }
     if (!currency || !["USD", "SYP"].includes(currency)) {
       return res.status(400).json({ message: "العملة غير صحيحة" });
@@ -72,7 +74,7 @@ export const Add_Apartment = async (req, res) => {
       }
     }
 
-    // إنشاء الشقة
+    // إنشاء العقار
     const new_apartment = new Apartment({
       title,
       location,
