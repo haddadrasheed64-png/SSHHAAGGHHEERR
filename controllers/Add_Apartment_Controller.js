@@ -24,10 +24,10 @@ export const Add_Apartment = async (req, res) => {
       description,
       owner_phone,
       email,
-      // الحقول الجديدة
       listing_type,
       currency,
       sale_price,
+      status,
     } = req.body;
 
     const The_User = await User.findOne({ email });
@@ -89,6 +89,7 @@ export const Add_Apartment = async (req, res) => {
       services,
       description,
       owner_phone,
+      status,
     });
     const saved = await new_apartment.save();
 

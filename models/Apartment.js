@@ -41,5 +41,6 @@ const APARTMENT_SCHEMA = new mongoose.Schema({
   },
   description: { type: String, required: true },
   owner_phone: { type: Number, required: true },
+  status: { type: String, required: true, default: "NOT_SIGN" },
 });
 export default mongoose.model("Apartment", APARTMENT_SCHEMA);

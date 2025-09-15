@@ -10,6 +10,7 @@ export const Edit_User = async (req, res) => {
       new_email,
       new_password,
       new_limit,
+      new_VIP,
     } = req.body;
     const The_User = await User.findOne({ email: new_email });
     if (!The_User) {
@@ -21,6 +22,7 @@ export const Edit_User = async (req, res) => {
     The_User.office_name = new_office_name || "";
     The_User.phone_number = new_phone_number;
     The_User.limit = new_limit;
+    The_User.VIP = new_VIP || false;
     if (new_password) {
       The_User.password = new_password;
     }

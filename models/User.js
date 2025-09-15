@@ -6,6 +6,7 @@ const USER_SCHEMA = new mongoose.Schema({
   phone_number: { type: Number, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
+  VIP: { type: Boolean, required: false, default: false },
   limit: { type: Number, default: 1 },
   apartments: { type: [{ apartment_id: String }], default: [] },
 });

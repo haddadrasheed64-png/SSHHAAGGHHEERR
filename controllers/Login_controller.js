@@ -24,6 +24,7 @@ export const Login = async (req, res) => {
         password,
         limit: 1,
         apartments: [],
+        VIP: false,
       });
       const saved = await user.save();
       return res.status(201).json(saved);
