@@ -13,6 +13,7 @@ export const Edit_Apertment = async (req, res) => {
       listing_type,
       currency,
       sale_price,
+      status,
     } = req.body;
 
     const The_Apartment = await Apartment.findOne({ _id: _id });
@@ -32,6 +33,7 @@ export const Edit_Apertment = async (req, res) => {
     The_Apartment.listing_type = listing_type;
     The_Apartment.sale_price = sale_price;
     The_Apartment.currency = currency;
+    status ? (The_Apartment.status = status) : null;
 
     await The_Apartment.save();
     res.status(200).json(The_Apartment);
