@@ -22,10 +22,6 @@ export const Add_Apartment = async (req, res) => {
       status,
       storage_index, // 👈 يجي من Get_Storage أو من الفرونت
     } = req.body;
-    console.log("BODY ===>", req.body);
-    console.log("IMAGES ===>", Array.isArray(req.body.images), req.body.images);
-    console.log("EMAIL ===>", req.body.email);
-    console.log("STORAGE_INDEX ===>", req.body.storage_index);
 
     // جلب حساب Cloudinary المناسب
     const cloud = getCloudinaryInstance(storage_index);
