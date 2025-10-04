@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 const APARTMENT_SCHEMA = new mongoose.Schema({
   title: { type: String, required: true },
   location: { type: String, required: true },
@@ -43,5 +42,5 @@ const APARTMENT_SCHEMA = new mongoose.Schema({
   description: { type: String, required: true },
   owner_phone: { type: Number, required: true },
   status: { type: String, required: true, default: "NOT_SIGN" },
+  createdAt: { type: Date, default: Date.now }, // إضافة هذا الحقل
 });
-export default mongoose.model("Apartment", APARTMENT_SCHEMA);
