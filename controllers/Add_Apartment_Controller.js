@@ -1,21 +1,13 @@
 import Apartment from "../models/Apartment.js";
 import User from "../models/User.js";
-import { v2 as cloudinary } from "cloudinary";
-import dotenv from "dotenv";
-
-dotenv.config();
-cloudinary.config({
-  cloud_name: "dcvmfnhhk",
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET,
-});
+import { getCloudinaryInstance } from "../config/cloudinary.js"; // الدالة اللي كتبناها
 
 export const Add_Apartment = async (req, res) => {
   try {
     const {
       title,
       location,
-      images, // يحتوي على { url, public_id, type }
+      images, // { url, public_id, type }
       rooms,
       gender,
       rent,
@@ -28,7 +20,11 @@ export const Add_Apartment = async (req, res) => {
       currency,
       sale_price,
       status,
+      storage_index, // 👈 يجي من Get_Storage أو من الفرونت
     } = req.body;
+
+    // جلب حساب Cloudinary المناسب
+    const cloud = getCloudinaryInstance(storage_index);
 
     const The_User = await User.findOne({ email });
     if (!The_User)
@@ -42,8 +38,8 @@ export const Add_Apartment = async (req, res) => {
     for (const file of images) {
       if (file.type === "video" && file.public_id) {
         try {
-          await cloudinary.uploader.destroy(file.public_id, {
-            type: "video",
+          await cloud.uploader.destroy(file.public_id, {
+            resource_type: "video",
           });
           console.log(`تم حذف الفيديو الأصلي: ${file.public_id}`);
         } catch (err) {
@@ -52,7 +48,7 @@ export const Add_Apartment = async (req, res) => {
       }
     }
 
-    // تحقق بسيط من الحقول بحسب نوع الإدراج
+    // تحقق من البيانات
     if (!listing_type || !["sell", "rent"].includes(listing_type)) {
       return res
         .status(400)
@@ -78,7 +74,7 @@ export const Add_Apartment = async (req, res) => {
     const new_apartment = new Apartment({
       title,
       location,
-      images, // هنا نحتفظ فقط بالرابط المضغوط
+      images,
       rooms,
       gender,
       listing_type,
@@ -90,7 +86,9 @@ export const Add_Apartment = async (req, res) => {
       description,
       owner_phone,
       status,
+      storage: storage_index, // 👈 نخزن أي Storage مستخدم
     });
+
     const saved = await new_apartment.save();
 
     The_User.limit -= 1;
