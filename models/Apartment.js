@@ -23,6 +23,7 @@ const APARTMENT_SCHEMA = new mongoose.Schema({
   rent: { type: Number, required: false },
   payment_method: { type: String, required: false },
   sale_price: { type: Number, required: false },
+  storage: { type: Number, required: true },
   currency: {
     type: String,
     enum: ["USD", "SYP"],
