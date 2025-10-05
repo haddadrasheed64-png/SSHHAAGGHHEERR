@@ -3,7 +3,7 @@ import Apartment from "../models/Apartment.js";
 export const Get_Storage = async (req, res) => {
   try {
     // جلب كل العقارات
-    const lastApartment = await Apartment.findOne().sort({ createdAt: -1 });
+    const lastApartment = await Apartment.findOne().sort({ _id: -1 });
 
     if (!lastApartment) {
       // إذا ما في عقارات، نبدأ من 1
