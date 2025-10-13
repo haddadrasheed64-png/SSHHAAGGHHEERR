@@ -35,18 +35,18 @@ export const Add_Apartment = async (req, res) => {
         .json({ message: "لقد بلغت الحد الأقصى المجاني للنشر" });
 
     // حذف النسخ الأصلية من الفيديو
-    for (const file of images) {
-      if (file.type === "video" && file.public_id) {
-        try {
-          await cloud.uploader.destroy(file.public_id, {
-            resource_type: "video",
-          });
-          console.log(`تم حذف الفيديو الأصلي: ${file.public_id}`);
-        } catch (err) {
-          console.error("فشل حذف الفيديو الأصلي:", file.public_id, err);
-        }
-      }
-    }
+    // for (const file of images) {
+    //   if (file.type === "video" && file.public_id) {
+    //     try {
+    //       await cloud.uploader.destroy(file.public_id, {
+    //         resource_type: "video",
+    //       });
+    //       console.log(`تم حذف الفيديو الأصلي: ${file.public_id}`);
+    //     } catch (err) {
+    //       console.error("فشل حذف الفيديو الأصلي:", file.public_id, err);
+    //     }
+    //   }
+    // }
 
     // تحقق من البيانات
     if (!listing_type || !["sell", "rent"].includes(listing_type)) {

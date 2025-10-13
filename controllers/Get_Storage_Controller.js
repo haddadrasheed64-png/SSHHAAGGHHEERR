@@ -9,7 +9,6 @@ export const Get_Storage = async (req, res) => {
       // إذا ما في عقارات، نبدأ من 1
       return res.json({ storage: 1 });
     }
-    console.log(lastApartment);
     return res.json({ storage: lastApartment.storage });
   } catch (error) {
     console.error(error);
