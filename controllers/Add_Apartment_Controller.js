@@ -23,9 +23,6 @@ export const Add_Apartment = async (req, res) => {
       storage_index, // 👈 يجي من Get_Storage أو من الفرونت
     } = req.body;
 
-    // جلب حساب Cloudinary المناسب
-    const cloud = getCloudinaryInstance(storage_index);
-
     const The_User = await User.findOne({ email });
     if (!The_User)
       return res.status(401).json({ message: "عذرا, لم تقم بتسجيل الدخول" });
@@ -34,21 +31,6 @@ export const Add_Apartment = async (req, res) => {
         .status(401)
         .json({ message: "لقد بلغت الحد الأقصى المجاني للنشر" });
 
-    // حذف النسخ الأصلية من الفيديو
-    // for (const file of images) {
-    //   if (file.type === "video" && file.public_id) {
-    //     try {
-    //       await cloud.uploader.destroy(file.public_id, {
-    //         resource_type: "video",
-    //       });
-    //       console.log(`تم حذف الفيديو الأصلي: ${file.public_id}`);
-    //     } catch (err) {
-    //       console.error("فشل حذف الفيديو الأصلي:", file.public_id, err);
-    //     }
-    //   }
-    // }
-
-    // تحقق من البيانات
     if (!listing_type || !["sell", "rent"].includes(listing_type)) {
       return res
         .status(400)
